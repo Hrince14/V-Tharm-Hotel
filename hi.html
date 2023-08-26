@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="converter-container">
+        <h1>Currency Converter</h1>
+        <div class="converter">
+            <label for="thb">THB (Thai Baht):</label>
+            <input type="number" id="thb" value="0">
+        </div>
+        <div class="converter">
+            <label for="usd">USD (US Dollar):</label>
+            <input type="number" id="usd" value="0">
+        </div>
+        <div class="converter">
+            <label for="eur">EUR (Euro):</label>
+            <input type="number" id="eur" value="0">
+        </div>
+        <div class="converter">
+            <label for="gbp">GBP (British Pound):</label>
+            <input type="number" id="gbp" value="0">
+        </div>
+    </div>
+
+    <script>
+        const exchangeRates = {
+            thb: 1,
+            usd: 0.030, // Example conversion rate
+            eur: 0.025, // Example conversion rate
+            gbp: 0.022, // Example conversion rate
+        };
+
+        const currencies = Object.keys(exchangeRates);
+
+        currencies.forEach(currency => {
+            const input = document.getElementById(currency);
+
+            input.addEventListener('input', () => {
+                const baseAmount = parseFloat(input.value);
+                
+                currencies.forEach(targetCurrency => {
+                    if (currency !== targetCurrency) {
+                        const rate = exchangeRates[targetCurrency];
+                        const targetInput = document.getElementById(targetCurrency);
+                        const convertedAmount = baseAmount * rate;
+                        targetInput.value = convertedAmount.toFixed(2);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
